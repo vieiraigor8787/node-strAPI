@@ -2,6 +2,8 @@
 const mongoose = require('mongoose')
 const Product = mongoose.model('Product')
 
+const ValidationContract = require('../validators/fluent-validators')
+
 exports.get = (req, res) => {
     Product.find({ 
         active:true 
@@ -51,6 +53,17 @@ exports.getbyTag = (req, res) => {
 }
 
 exports.post = (req, res) => {
+    let contract = new ValidationContract()
+    contract.hasMinLen(req.body.title, 3, 'O título deve conter pelo menos 3 caracteres')
+    contract.hasMinLen(req.body.slug, 3, 'O título deve conter pelo menos 3 caracteres')
+    contract.hasMinLen(req.body.description, 3, 'O título deve conter pelo menos 3 caracteres')
+
+    // se dados invalidos
+    if (!contract.isValid()) {
+        res.status(400).send(contract.errors()).end()
+        return
+    }
+
     var product = new Product(req.body)
     product.save()
         .then(x => {
@@ -59,14 +72,6 @@ exports.post = (req, res) => {
         .catch(e => {
             res.status(400).send({ message: 'Falha ao cadastrar produto', data: e})
         })
-}
-
-exports.put = (req, res) => {
-    const id = req.params.id
-    res.status(200).send({
-        id: id,
-        item: req.body
-    })
 }
 
 exports.put = (req, res) => {
