@@ -8,6 +8,8 @@ mongoose.connect('mongodb+srv://vieiraigor87:obaoba@fullstack-ijwbj.mongodb.net/
 
 // carrega os models
 const Product = require('./models/product')
+const Customer = require('./models/customer')
+const Order = require('./models/order')
 
 const indexRoute = require('./routes')
 const usersRoute = require('./routes/users')

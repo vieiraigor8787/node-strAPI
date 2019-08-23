@@ -77,7 +77,7 @@ exports.put = async(req, res) => {
    try{
        await repository.update(req.params.id, req.body)
        res.status(200).send({
-        message: 'Produto alterado com sucesso'
+            message: 'Produto alterado com sucesso'
     })
     } catch(e) {
         res.status(500).send({
