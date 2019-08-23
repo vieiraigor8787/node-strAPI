@@ -1,29 +1,41 @@
 const mongoose = require('mongoose')
 const Product = mongoose.model('Product')
 
-exports.get = () => Product.find({ 
+exports.get = async() => {
+    const res = await Product.find({ 
         active:true 
         }, 'title price slug')
+    return res
+}
 
-exports.getBySlug = (slug) => Product.findOne({ //pra não trazer um array. Somente um resultado
+exports.getBySlug = async(slug) => {
+    const res = await Product.findOne({ //pra não trazer um array. Somente um resultado
         slug: slug,
         active:true 
         }, 'title description price slug tags')//buscar tudo, porém so trazer titulo, preço e slug e prods ativos
+    return res    
+}
 
-exports.getById = (id) => Product.findById(id)
+exports.getById = async(id) => {
+    const res = await Product.findById(id)
+    return res
+}
 
-exports.getByTag = (tag) => Product.findOne({
+exports.getByTag = async(tag) => {
+    const res = await Product.findOne({
         tags: tag,
         active: true
     }, 'title description price slug tags')
-
-exports.create = data => {
-    const product = new Product(data)
-    return product.save()
+    return res
 }
 
-exports.update = (id, data) => {
-    return Product.findByIdAndUpdate(id, {
+exports.create = async(data) => {
+    const product = new Product(data)
+    await product.save()
+}
+
+exports.update = async(id, data) => {
+    await Product.findByIdAndUpdate(id, {
         $set: {
             title: data.title,
             description: data.description,
@@ -33,6 +45,6 @@ exports.update = (id, data) => {
     })
 }
 
-exports.delete = id => {
-    return Product.findOneAndRemove(id)
+exports.delete = async(id) => {
+    await Product.findOneAndRemove(id)
 }
