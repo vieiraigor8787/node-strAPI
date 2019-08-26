@@ -13,6 +13,8 @@ const Order = require('./models/order')
 
 const indexRoute = require('./routes')
 const usersRoute = require('./routes/users')
+const customerRoute = require('./routes/customer')
+const orderRoute = require('./routes/order')
 //configurando bodyparser para que a requisição seja convertida em json na sua response 
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
@@ -20,5 +22,7 @@ app.use(bp.urlencoded({ extended: true }))
 
 app.use('/', indexRoute)
 app.use('/users', usersRoute)
+app.use('/customer', customerRoute)
+app.use('/order', orderRoute)
 
 module.exports = app

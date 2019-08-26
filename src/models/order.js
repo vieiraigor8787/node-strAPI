@@ -22,18 +22,18 @@ const schema = new Schema({
         default: 'created'
     },
     items: [{
-        quantity: {
-            type: Number,
-            required: true,
-            default: 1
+        product: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Product'
         },
         price: {
             type: Number,
             required: true,
         },
-        product: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Product'
+        quantity: {
+            type: Number,
+            required: true,
+            default: 1
         },
     }]
 })
