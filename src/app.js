@@ -1,10 +1,10 @@
 const express = require('express')
 const app = express()
 const bp = require('body-parser')
-
+const config = require('./config')
 //conecta ao banco
 const mongoose = require('mongoose')
-mongoose.connect('mongodb+srv://vieiraigor87:obaoba@fullstack-ijwbj.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true} )
+mongoose.connect(config.connectionString, {useNewUrlParser: true} )
 
 // carrega os models
 const Product = require('./models/product')
